@@ -1,0 +1,12 @@
+.DS_Store
+build/
+Chipspace.app/
+dist/
+.qa-data/
+Reports/
+*.log
+connection.json
+latest.json
+activity.json
+__pycache__/
+Screenshots/

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chipspace — local storage instrument</title><link rel="icon" href="/icon.svg"><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body>
+<div class="shell">
+  <aside class="rail">
+    <a class="brand" href="#" aria-label="Chipspace home"><img src="/icon.svg" width="36" height="36" alt=""><span>chipspace<span class="model">CS–01</span></span></a>
+    <div class="rail-label mono">LOCAL STORAGE<br>INSTRUMENT</div>
+    <nav aria-label="Main navigation"><button class="nav active" data-view="storage"><span class="nav-number">01</span>Storage board</button><button class="nav" data-view="activity"><span class="nav-number">02</span>Activity</button><button class="nav" data-view="about"><span class="nav-number">03</span>Field notes</button></nav>
+    <div class="rail-bottom"><div class="little-chip" aria-hidden="true"><i></i><i></i><b>⌣</b></div><p>A little order.<br>A little more space.</p><span class="local-label mono"><span></span>LOCAL ONLY</span></div>
+  </aside>
+  <main>
+    <header><div class="eyebrow mono">CS–01 <span>/</span> MAC STORAGE EXPLORER</div><div class="header-right mono"><span id="connection">CONNECTING</span><button id="help" class="round" aria-label="Show field notes">?</button></div></header>
+    <section id="storage-view" class="view">
+      <div class="title-row"><div><h1>Space, made visible.</h1><p class="subtitle">Find the big things. Understand them. Make room.</p></div><button id="scan" class="primary"><span class="scan-icon" aria-hidden="true">⊙</span><span id="scan-label">SCAN THIS MAC</span></button></div>
+      <div id="progress" class="progress hidden" role="status"><span class="spinner"></span><span id="progress-text">Reading storage…</span></div>
+      <div id="notice" class="notice hidden" role="status"></div>
+      <div class="metrics"><section class="metric"><div class="metric-label mono">01 / DRIVE IN USE</div><div class="metric-value" id="used">—<small>GiB</small></div><div class="capacity"><i id="capacity-bar"></i></div><div class="metric-note" id="capacity-note">Reading disk capacity</div></section><section class="metric"><div class="metric-label mono">02 / ROOM TO BREATHE</div><div class="metric-value" id="free">—<small>GiB</small></div><div class="metric-note">Free space on your startup disk</div><span class="metric-glyph" aria-hidden="true">↔</span></section><section class="metric"><div class="metric-label mono">03 / MAPPED CONTRIBUTORS</div><div class="metric-value" id="mapped">—<small>GiB</small></div><div class="metric-note" id="mapped-note">Run a scan to map your folders</div><span class="metric-glyph grid-glyph" aria-hidden="true">▦</span></section></div>
+      <div class="workspace">
+        <div class="storage-main">
+          <div class="section-heading"><h2>THE STORAGE BOARD</h2><span id="scan-date" class="mono muted">AWAITING FIRST SCAN</span></div>
+          <div class="board-case">
+            <i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i>
+            <div class="board-top mono"><span>CS–01 / ALLOCATION MODULE</span><span>CLICK A CHIP TO INSPECT</span></div>
+            <div class="pcb"><div class="pcb-trace trace-a"></div><div class="pcb-trace trace-b"></div><div id="chips" class="chips" aria-label="Storage map. Chip area represents measured folder size."></div><div id="empty-board"><div class="empty-chip">:)</div><h3>Meet your storage.</h3><p>Start a scan to turn hidden folders<br>into something you can see.</p></div><div class="pcb-code mono">DISK SPACE / NOT RAM</div></div>
+            <div class="contacts" aria-hidden="true"></div>
+          </div>
+          <div class="legend" aria-label="Filter by category"><button data-category="all" class="selected">All</button><button data-category="development"><i class="dot development"></i>Development</button><button data-category="models"><i class="dot models"></i>AI models</button><button data-category="caches"><i class="dot caches"></i>Caches</button><button data-category="apps"><i class="dot apps"></i>App data</button><button data-category="system"><i class="dot system"></i>System</button><button data-category="personal"><i class="dot personal"></i>Personal</button></div>
+          <p class="map-note">Chip area = share of mapped storage. Parent folders aren’t counted twice. Shared APFS blocks can affect totals and space recovered.</p>
+          <div class="folder-head"><div><h2>FOLDER INDEX</h2><p id="folder-caption">Largest locations first</p></div><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Find a folder…" aria-label="Search folders"></label></div>
+          <div class="table-controls"><button id="root" class="text-button hidden">All folders</button><span id="breadcrumb" class="mono"></span><label class="filter-check"><input type="checkbox" id="reviewable">Cleanup available</label></div>
+          <div class="folder-table"><div class="table-header mono"><span>LOCATION</span><button id="sort" aria-label="Change sort order">SIZE ↓</button><span>HANDLING</span></div><div id="folder-rows"></div></div>
+          <button id="show-more" class="more hidden">SHOW MORE FOLDERS</button>
+          <div id="coverage" class="coverage hidden"><div><strong>Some folders couldn’t be read completely.</strong><p>Partial sizes are lower bounds. Full Disk Access can improve coverage.</p></div><button id="coverage-detail" class="secondary">VIEW COVERAGE</button></div>
+        </div>
+        <aside id="inspector" class="inspector" aria-label="Selected folder details"><div class="inspector-head mono">INSPECTOR <span>↗</span></div><div id="inspector-content"><div class="inspector-empty"><div class="crosshair">+</div><h3>Pick a chip.</h3><p>See what’s inside, why it exists, and what happens if you remove it.</p></div></div></aside>
+      </div>
+    </section>
+    <section id="activity-view" class="view hidden"><div class="title-row"><div><h1>A record of the little things.</h1><p class="subtitle">Scans and cleanup actions on this Mac.</p></div></div><div id="activity-list"></div></section>
+    <section id="about-view" class="view hidden"><div class="title-row"><div><h1>Know what you’re clearing.</h1><p class="subtitle">A few field notes before you make space.</p></div></div><div class="notes-grid"><article><span class="note-number mono">01 / THE MAP</span><h2>Storage, dressed as hardware.</h2><p>This RAM-board-inspired map shows disk storage—not memory. Bigger chips mean bigger folders. It maps common contributors to System Data and other categories; it cannot reproduce Apple’s category exactly.</p></article><article><span class="note-number mono">02 / THE NUMBERS</span><h2>Measured ≠ reclaimable.</h2><p>The board avoids counting nested folders twice. APFS clones, snapshots, permission gaps, and changing files still affect measurements. Free space is measured separately from folder allocation.</p></article><article><span class="note-number mono">03 / CLEANUP</span><h2>You’re at the controls.</h2><p>Recognized caches and optional downloads can be reviewed for removal. Quit the owning app first. Every action requires confirmation. Unknown app data and protected system folders stay inspection-only. Trash is reversible but doesn’t immediately free space.</p></article><article><span class="note-number mono">04 / COVERAGE</span><h2>Some doors stay closed.</h2><p>For a fuller scan, add Chipspace to System Settings → Privacy &amp; Security → Full Disk Access, then quit and reopen it. Other users, custom storage locations, and redirected folders may be outside this scan. No administrator password is needed.</p></article><article><span class="note-number mono">05 / PREVENTION</span><h2>Retire what you don’t use.</h2><p>Review simulator versions after Xcode updates. Remove unused AI model downloads. Check retained data before uninstalling an app. Rescan periodically: folder details show growth when two complete measurements are available.</p></article><article><span class="note-number mono">06 / LOCAL ONLY</span><h2>Your disk stays your business.</h2><p>No accounts, uploads, trackers, or cloud backend. Chipspace runs on 127.0.0.1 and stores reports on this Mac. Use its chip icon in the menu bar to reopen the dashboard or quit the server.</p></article></div></section>
+    <footer class="mono"><span>CHIPSPACE / STORAGE WITH A LITTLE CHARACTER</span><span id="footer-machine">ON THIS MAC</span></footer>
+  </main>
+</div>
+<dialog id="modal" aria-labelledby="modal-title"><div class="modal-top"><span id="modal-kicker" class="mono">REVIEW ITEM</span><button id="close-modal" class="round" aria-label="Close dialog">×</button></div><h2 id="modal-title"></h2><div id="modal-body"></div></dialog>
+<div id="toast" role="status" class="toast hidden"></div>
+</body></html>
